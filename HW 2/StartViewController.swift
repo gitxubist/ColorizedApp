@@ -7,18 +7,29 @@
 //
 import UIKit
 
-final class StartViewController: UIViewController {
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
 
-    }
+final class StartViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "CollorTransfer" {
             if let colorCreateVC = segue.destination as? ViewController {
                 colorCreateVC.colorView = view
+                colorCreateVC.delegate = self
             }
         }
+    }
+}
+
+// MARK: - StartViewControllerDelegate
+extension StartViewController: StartViewControllerDelegate {
+    // Обновляем цвет view
+    func updateColor(red: CGFloat, green: CGFloat, blue: CGFloat) {
+        print(red, green, blue)
+        view.backgroundColor = UIColor(
+            red: red,
+            green: green,
+            blue: blue,
+            alpha: 1
+        )
     }
 }

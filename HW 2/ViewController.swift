@@ -8,6 +8,11 @@
 
 import UIKit
 
+
+protocol StartViewControllerDelegate: AnyObject {
+    func updateColor(red: CGFloat, green: CGFloat, blue: CGFloat)
+}
+
 final class ViewController: UIViewController {
     
     @IBOutlet var colorView: UIView!
@@ -20,20 +25,15 @@ final class ViewController: UIViewController {
     @IBOutlet private var greenSlider: UISlider!
     @IBOutlet private var blueSlider: UISlider!
     
+    weak var delegate: StartViewControllerDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.navigationItem.hidesBackButton = true
+        
         dispersion()
-        
-//        self.navigationItem.hidesBackButton = true
-        
         colorView.layer.cornerRadius = 15
-//        setColor()
-        
-//        redLabel.text = string(from: redSlider)
-//        greenLabel.text = string(from: greenSlider)
-//        blueLabel.text = string(from: blueSlider)
-        dispersion()
     }
     
     @IBAction private func sliderAction(_ sender: UISlider) {
@@ -47,7 +47,15 @@ final class ViewController: UIViewController {
         default:
             blueLabel.text = string(from: blueSlider)
         }
-        
+    }
+    
+    @IBAction func doneAction() {
+        delegate?.updateColor(
+            red: redSlider.value.cgFloat(),
+            green: greenSlider.value.cgFloat(),
+            blue: blueSlider.value.cgFloat()
+        )
+        dismiss(animated: true)
     }
     
     private func setColor() {
