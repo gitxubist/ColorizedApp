@@ -10,7 +10,7 @@ import UIKit
 
 final class ViewController: UIViewController {
     
-    @IBOutlet private var colorView: UIView!
+    @IBOutlet var colorView: UIView!
     
     @IBOutlet private var redLabel: UILabel!
     @IBOutlet private var greenLabel: UILabel!
@@ -23,8 +23,10 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        self.navigationItem.hidesBackButton = true
+        
         colorView.layer.cornerRadius = 15
-        setColor()
+//        setColor()
         
         redLabel.text = string(from: redSlider)
         greenLabel.text = string(from: greenSlider)
